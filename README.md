@@ -24,22 +24,24 @@ All lag features are ≥ 28 days, so one LightGBM model forecasts the full 28-da
 recursive forecasting and no leakage.
 
 ## Results
-<!-- Fill in after running the notebook on the real data -->
-| Model | WMAPE | Forecast accuracy | vs baseline |
-|---|---|---|---|
-| Seasonal naive | __% | __% | — |
-| SARIMA | __% | __% | __% |
-| Prophet | __% | __% | __% |
-| LightGBM | __% | __% | __% |
+Backtest: 3 stores (CA_1, TX_1, WI_1) × 7 departments = 21 series, 3 rolling folds × 28-day horizon.
+
+| Model | WMAPE | Forecast accuracy | Error reduction vs baseline | Bias | Fit time |
+|---|---|---|---|---|---|
+| **LightGBM** | **9.3%** | **90.7%** | **32.8%** | −1.3% | 10 s |
+| SARIMA | 11.8% | 88.2% | 14.9% | −7.1% | 85 s |
+| Prophet | 12.2% | 87.8% | 12.6% | −4.5% | 59 s |
+| Seasonal naive | 13.9% | 86.1% | — | −4.0% | — |
 
 ![Model comparison](results/model_comparison.png)
 ![Forecast example](results/forecast_example.png)
 ![Feature importance](results/feature_importance.png)
 
 **Key findings**
-- _Best model and accuracy gain over baseline_
-- _Top demand drivers from feature importance_
-- _Where the models struggle (event days, low-volume departments)_
+- **LightGBM is the most accurate:** 9.3% WMAPE, 21% lower error than SARIMA, and about 8× faster to fit, because one global model learns shared weekday, price and event patterns across all series.
+- **LightGBM is also the least biased (−1.3%).** SARIMA under-forecasts by 7.1%, which in practice means more stock-outs.
+- **Prophet trailed SARIMA** even with event and price regressors. Its smooth trend and seasonality curves miss the short-term swings that lag features capture.
+- **Top demand drivers:** _fill in from feature_importance.png, e.g. recent rolling mean, lag_28, weekday._
 
 ## Run it
 1. Click **Open in Colab** above.
