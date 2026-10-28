@@ -41,8 +41,8 @@ Backtest: 3 stores (CA_1, TX_1, WI_1) × 7 departments = 21 series, 3 rolling fo
 - **LightGBM is the most accurate:** 9.3% WMAPE, 21% lower error than SARIMA, and about 8× faster to fit, because one global model learns shared weekday, price and event patterns across all series.
 - **LightGBM is also the least biased (−1.3%).** SARIMA under-forecasts by 7.1%, which in practice means more stock-outs.
 - **Prophet trailed SARIMA** even with event and price regressors. Its smooth trend and seasonality curves miss the short-term swings that lag features capture.
-- **Top demand drivers:** _fill in from feature_importance.png, e.g. recent rolling mean, lag_28, weekday._
-
+- **Top demand drivers:** recent sales history dominates. `lag_28` alone accounts for ~54% of the model's total gain, and with the 28-day rolling mean (~14%), `lag_35` (~14%) and the 7-day rolling mean (~12%), these four make up ~94% of the gain. Price and calendar features add little at store × department level, because discounts on individual items average out when 400–1,000 items are combined.
+  
 ## Run it
 1. Click **Open in Colab** above.
 2. Add `KAGGLE_USERNAME` and `KAGGLE_KEY` as Colab secrets and accept the
