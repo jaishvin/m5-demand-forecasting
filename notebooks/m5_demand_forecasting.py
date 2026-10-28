@@ -83,8 +83,8 @@ np.random.seed(SEED)
 # ## 3. Get the data
 # **Real data (one-time setup):**
 # 1. Sign in at kaggle.com, open the [M5 Forecasting – Accuracy competition](https://www.kaggle.com/competitions/m5-forecasting-accuracy/rules) and click **I Understand and Accept** on the Rules tab.
-# 2. Kaggle → Settings → API → **Create New Token**. It downloads `kaggle.json` with your username and key.
-# 3. In Colab, click the key icon (Secrets) on the left and add `KAGGLE_USERNAME` and `KAGGLE_KEY`, with notebook access on.
+# 2. Kaggle → Settings → API Tokens → **Generate New Token**, and copy the token (it starts with `KGAT_`).
+# 3. In Colab, click the key icon (Secrets) on the left → add a secret named `KAGGLE_API_TOKEN` with the token as its value, with notebook access on.
 #
 # Alternative: download `calendar.csv`, `sell_prices.csv` and `sales_train_evaluation.csv` yourself and upload them to the `data/` folder.
 
@@ -97,8 +97,7 @@ def download_m5(data_dir):
         return
     if IN_COLAB:
         from google.colab import userdata
-        os.environ["KAGGLE_USERNAME"] = userdata.get("KAGGLE_USERNAME")
-        os.environ["KAGGLE_KEY"] = userdata.get("KAGGLE_KEY")
+        os.environ["KAGGLE_API_TOKEN"] = userdata.get("KAGGLE_API_TOKEN")
     subprocess.run(["kaggle", "competitions", "download", "-c", "m5-forecasting-accuracy", "-p", data_dir],
                    check=True)
     with zipfile.ZipFile(os.path.join(data_dir, "m5-forecasting-accuracy.zip")) as z:
