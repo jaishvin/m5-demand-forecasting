@@ -1,0 +1,9 @@
+pyspark>=4.0
+pandas>=2.0
+numpy
+matplotlib
+statsmodels
+prophet
+lightgbm
+kaggle
+jinja2

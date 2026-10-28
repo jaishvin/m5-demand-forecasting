@@ -1,0 +1,9 @@
+data/
+*.parquet
+*.zip
+kaggle.json
+spark-warehouse/
+metastore_db/
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
